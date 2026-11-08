@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#090719">
+<meta name="description" content="A little light, a little magic, and heartfelt Diwali wishes.">
+<title>Shubh Deepawali ✨ | With love, Sparsh</title>
+<style>
+  :root {
+    --night:#090719; --violet:#171033; --gold:#ffd98a; --gold2:#fff0c4;
+    --pink:#ffb6df; --white:#fff9ed; --muted:#d6cce9;
+  }
+  * { box-sizing:border-box }
+  html { scroll-behavior:smooth }
+  body {
+    margin:0; min-height:100vh; overflow-x:hidden; color:var(--white);
+    font-family: Georgia, "Times New Roman", serif;
+    background:
+      radial-gradient(ellipse at 50% 90%, rgba(125,65,190,.25), transparent 48%),
+      radial-gradient(ellipse at 15% 20%, rgba(69,54,137,.23), transparent 38%),
+      linear-gradient(160deg,#080617 0%,#100a27 52%,#080617 100%);
+  }
+  button { font:inherit }
+  #sky { position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none }
+  .aurora {
+    position:fixed; inset:-20%; z-index:0; pointer-events:none; opacity:.25;
+    background:conic-gradient(from 90deg at 50% 50%, transparent,rgba(135,92,255,.2),transparent,rgba(255,185,224,.12),transparent);
+    filter:blur(75px); animation:aurora 18s ease-in-out infinite alternate;
+  }
+  @keyframes aurora { to { transform:rotate(35deg) scale(1.12) } }
+  .page { position:relative; z-index:1; width:min(920px,100%); margin:auto; padding:22px 18px 46px }
+  .topbar { display:flex; justify-content:space-between; align-items:center; gap:10px }
+  .brand { color:var(--gold); letter-spacing:.16em; font:600 10px/1.4 system-ui,sans-serif; text-transform:uppercase }
+  .top-actions { display:flex; gap:8px }
+  .small-btn {
+    color:#f9e9c9; border:1px solid rgba(255,224,160,.35); background:rgba(255,255,255,.055);
+    border-radius:99px; padding:9px 12px; font:12px system-ui,sans-serif; cursor:pointer;
+    backdrop-filter:blur(8px)
+  }
+  .small-btn:focus-visible,.main-btn:focus-visible,.diya-button:focus-visible { outline:2px solid white; outline-offset:4px }
+  .hero { text-align:center; padding:clamp(48px,10vh,100px) 0 24px }
+  .eyebrow { color:#e9c8ff; text-transform:uppercase; letter-spacing:.32em; font:11px system-ui,sans-serif }
+  h1 { margin:14px 0 8px; color:var(--gold2); font-size:clamp(43px,10vw,82px); line-height:1.05; font-weight:500; text-shadow:0 0 24px rgba(255,205,120,.25) }
+  .english-title { margin:12px 0 0; font-size:clamp(17px,4vw,23px); color:#f3d7ff; font-style:italic; letter-spacing:.04em }
+  .ornament { color:var(--gold); font-size:18px; letter-spacing:.5em; margin:18px 0 }
+  .intro { max-width:570px; margin:0 auto; color:var(--muted); font:15px/1.8 system-ui,sans-serif }
+  .stage { display:grid; place-items:center; min-height:270px; position:relative; margin:10px auto 20px }
+  .halo {
+    position:absolute; width:230px; height:230px; border-radius:50%;
+    background:radial-gradient(circle,rgba(255,194,91,.24),rgba(171,104,255,.10) 42%,transparent 70%);
+    filter:blur(5px); animation:pulse 3.4s ease-in-out infinite;
+  }
+  @keyframes pulse { 50% { transform:scale(1.17); opacity:.7 } }
+  .diya-button { border:0; background:transparent; cursor:pointer; padding:12px; position:relative; z-index:2; -webkit-tap-highlight-color:transparent }
+  .diya-svg { width:min(210px,55vw); height:auto; overflow:visible; filter:drop-shadow(0 10px 22px rgba(255,158,49,.28)) }
+  .flame { transform-origin:100px 83px; animation:flicker .16s ease-in-out infinite alternate }
+  @keyframes flicker { to { transform:rotate(3deg) scale(.94,1.05) } }
+  .unlit .flame { opacity:0; transform:scale(.1); animation:none }
+  .diya-hint { position:absolute; bottom:4px; color:#e6c9ff; font:11px system-ui,sans-serif; letter-spacing:.14em; text-transform:uppercase }
+  .card {
+    position:relative; max-width:690px; margin:8px auto 24px; padding:clamp(24px,6vw,43px);
+    text-align:center; border:1px solid rgba(255,218,153,.32); border-radius:24px;
+    background:linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.025));
+    box-shadow:0 18px 70px rgba(0,0,0,.22), inset 0 0 35px rgba(255,221,160,.035);
+    backdrop-filter:blur(14px);
+  }
+  .card:before,.card:after { content:"✦"; position:absolute; color:var(--gold); font-size:18px; opacity:.8 }
+  .card:before { top:15px; left:18px } .card:after { bottom:15px; right:18px }
+  .card h2 { color:var(--gold2); font-weight:500; font-size:clamp(25px,6vw,35px); margin:0 0 16px }
+  .wish { color:#f7edf9; font-size:clamp(16px,3.8vw,19px); line-height:1.9; margin:0 auto; max-width:560px }
+  .wish-hi { color:#ffe5ad; margin-top:17px; font-size:clamp(16px,3.7vw,19px); line-height:1.9 }
+  .signature { margin-top:25px; color:var(--gold); font-style:italic; font-size:19px }
+  .signature small { display:block; margin-bottom:5px; color:#cbbce2; font:10px system-ui,sans-serif; letter-spacing:.2em; text-transform:uppercase }
+  .actions { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin:24px 0 15px }
+  .main-btn {
+    border:1px solid rgba(255,226,169,.55); border-radius:99px; padding:13px 19px; cursor:pointer;
+    color:#241331; background:linear-gradient(120deg,#ffe7ae,#eebcff); font:600 13px system-ui,sans-serif;
+    box-shadow:0 7px 24px rgba(232,174,255,.15); transition:transform .2s,filter .2s;
+  }
+  .main-btn:hover { transform:translateY(-2px); filter:brightness(1.07) }
+  .main-btn.secondary { color:#ffedcf; background:rgba(255,255,255,.06); box-shadow:none }
+  .note { text-align:center; color:#a99cbe; font:11px/1.6 system-ui,sans-serif; margin:16px 0 0 }
+  footer { text-align:center; color:#9689ad; font:11px system-ui,sans-serif; letter-spacing:.08em; padding:28px 0 4px }
+  .sparkle { position:fixed; z-index:2; pointer-events:none; color:#ffe5a3; animation:rise 1.7s ease-out forwards; text-shadow:0 0 12px #ffc66d }
+  @keyframes rise { from { opacity:0; transform:translateY(8px) scale(.5) } 20% {opacity:1} to {opacity:0; transform:translateY(-100px) scale(1.5)} }
+  .toast { position:fixed; z-index:5; bottom:22px; left:50%; transform:translate(-50%,20px); opacity:0; pointer-events:none; background:#25183c; color:#fff2d5; border:1px solid #8467a8; border-radius:99px; padding:11px 17px; font:12px system-ui,sans-serif; transition:.25s }
+  .toast.show { opacity:1; transform:translate(-50%,0) }
+  @media (max-width:480px) {
+    .page { padding:17px 14px 34px }
+    .brand { letter-spacing:.1em; font-size:9px }
+    .small-btn { padding:8px 10px; font-size:11px }
+    .hero { padding-top:58px }
+    .stage { min-height:240px }
+    .card { border-radius:20px }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    *,*:before,*:after { animation-duration:.01ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; transition:none!important }
+  }
+</style>
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas><div class="aurora" aria-hidden="true"></div>
+<main class="page">
+  <header class="topbar">
+    <div class="brand">A little light · A little magic</div>
+    <div class="top-actions">
+      <button class="small-btn" id="musicBtn" type="button" aria-pressed="false">♫ Music: Off</button>
+      <button class="small-btn" id="soundBtn" type="button" aria-label="Toggle sound effects">Sound: On</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">A festival of light, love & new beginnings</div>
+    <h1>शुभ दीपावली</h1>
+    <div class="english-title">May your world glow with a thousand joys</div>
+    <div class="ornament" aria-hidden="true">✧ ❋ ✧</div>
+    <p class="intro">Some wishes are more than words — they are little lights sent from one heart to another. This one is for you.</p>
+  </section>
+
+  <section class="stage" aria-label="Interactive diya">
+    <div class="halo"></div>
+    <button class="diya-button" id="diyaButton" type="button" aria-label="Light the diya">
+      <svg class="diya-svg unlit" id="diya" viewBox="0 0 200 190" role="img" aria-label="A golden diya lamp">
+        <defs>
+          <linearGradient id="bowl" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffe9a7"/><stop offset=".45" stop-color="#d88a38"/><stop offset="1" stop-color="#783d3e"/></linearGradient>
+          <linearGradient id="flameFill" x1="0" y1="1" x2="0" y2="0"><stop stop-color="#ff8b32"/><stop offset=".55" stop-color="#ffe06c"/><stop offset="1" stop-color="#fff8d2"/></linearGradient>
+          <radialGradient id="glow"><stop stop-color="#ffdb79" stop-opacity=".7"/><stop offset="1" stop-color="#ffb44a" stop-opacity="0"/></radialGradient>
+        </defs>
+        <ellipse cx="100" cy="147" rx="83" ry="23" fill="url(#glow)"/>
+        <g class="flame" id="flame">
+          <path d="M100 23 C79 49 83 65 100 82 C118 65 122 47 100 23Z" fill="url(#flameFill)"/>
+          <path d="M100 54 C91 66 94 74 100 79 C107 71 108 63 100 54Z" fill="#fffdf0"/>
+          <path d="M100 80 L100 103" stroke="#f8d7a0" stroke-width="3" stroke-linecap="round"/>
+        </g>
+        <path d="M22 112 Q100 157 178 112 Q163 171 100 173 Q37 171 22 112Z" fill="url(#bowl)" stroke="#ffdf9a" stroke-width="2"/>
+        <path d="M24 112 Q100 145 176 112" fill="none" stroke="#fff0bd" stroke-width="3"/>
+        <path d="M45 145 Q100 166 155 145" fill="none" stroke="#f5bd68" stroke-width="2" opacity=".8"/>
+        <path d="M75 151 Q100 159 125 151" fill="none" stroke="#ffe6a6" stroke-width="2"/>
+        <circle cx="100" cy="132" r="4" fill="#fff0bc"/>
+      </svg>
+    </button>
+    <div class="diya-hint" id="diyaHint">Tap the diya to light your wish</div>
+  </section>
+
+  <section class="card" id="wishCard">
+    <h2>For you & your family</h2>
+    <p class="wish">May this festival bring peace to your home, strength to your heart, and countless reasons to smile. May every new day open a beautiful door, and may the light within you never fade.</p>
+    <p class="wish-hi" lang="hi">आपके जीवन में सुख, शांति और समृद्धि का उजाला बना रहे। हर नई सुबह नई उम्मीदें लाए और आपका घर हमेशा खुशियों से रोशन रहे।</p>
+    <div class="signature"><small>A heartfelt wish</small>With love, Sparsh</div>
+  </section>
+
+  <div class="actions">
+    <button class="main-btn" id="shareBtn" type="button">↗ Share this wish</button>
+    <button class="main-btn secondary" id="fireBtn" type="button">✧ Make the sky sparkle</button>
+  </div>
+  <p class="note">Tip: Turn on optional music, light the diya, and share this little celebration.</p>
+  <footer>MADE WITH LIGHT & GOOD WISHES · शुभ दीपावली</footer>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  const canvas = document.getElementById('sky');
+  const ctx = canvas.getContext('2d');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let w, h, stars = [], particles = [], soundOn = true, lit = false, audioCtx = null, musicTimer = null, musicOn = false, noteIndex = 0;
+  const notes = [261.63,329.63,392,523.25,392,329.63,293.66,349.23,440,587.33,440,349.23];
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = innerWidth; h = innerHeight;
+    canvas.width = w*dpr; canvas.height = h*dpr;
+    canvas.style.width = w+'px'; canvas.style.height = h+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    stars = Array.from({length:Math.min(115,Math.floor(w*h/8500))}, () => ({
+      x:Math.random()*w, y:Math.random()*h, r:Math.random()*1.35+.25,
+      a:Math.random()*.65+.2, p:Math.random()*6.28
+    }));
+  }
+  addEventListener('resize', resize); resize();
+
+  function draw() {
+    ctx.clearRect(0,0,w,h);
+    const t = performance.now()/1000;
+    for (const s of stars) {
+      const alpha = s.a*(.65+.35*Math.sin(t*1.2+s.p));
+      ctx.fillStyle = `rgba(255,231,190,${alpha})`;
+      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill();
+    }
+    particles = particles.filter(p => p.life > 0);
+    for (const p of particles) {
+      p.x += p.vx; p.y += p.vy; p.vy += p.gravity; p.life -= p.decay;
+      ctx.globalAlpha = Math.max(0,p.life);
+      ctx.fillStyle = p.color;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    if (!reduced) requestAnimationFrame(draw);
+  }
+  draw();
+
+  function burst(x,y,count=65) {
+    const colors = ['#ffe7a6','#ffb6df','#d7b7ff','#ffffff','#ffb45c'];
+    for (let i=0;i<count;i++) {
+      const a = Math.random()*Math.PI*2, speed = 1+Math.random()*4.4;
+      particles.push({x,y,vx:Math.cos(a)*speed,vy:Math.sin(a)*speed,gravity:.035,
+        life:1,decay:.009+Math.random()*.012,size:1+Math.random()*2.2,
+        color:colors[Math.floor(Math.random()*colors.length)]});
+    }
+  }
+  function showToast(msg) {
+    const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show');
+    clearTimeout(showToast.timer); showToast.timer=setTimeout(()=>el.classList.remove('show'),2200);
+  }
+  function chime(freq=660, duration=.16) {
+    if (!soundOn) return;
+    try {
+      audioCtx ||= new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state==='suspended') audioCtx.resume();
+      const osc=audioCtx.createOscillator(), gain=audioCtx.createGain();
+      osc.type='sine'; osc.frequency.value=freq;
+      gain.gain.setValueAtTime(.0001,audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(.055,audioCtx.currentTime+.02);
+      gain.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+duration);
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.start(); osc.stop(audioCtx.currentTime+duration+.03);
+    } catch(e) {}
+  }
+  function sparkleAt(x,y) {
+    const s=document.createElement('span'); s.className='sparkle'; s.textContent=['✦','✧','✺'][Math.floor(Math.random()*3)];
+    s.style.left=x+'px'; s.style.top=y+'px'; s.style.fontSize=(12+Math.random()*13)+'px';
+    document.body.appendChild(s); setTimeout(()=>s.remove(),1800);
+  }
+
+  const diyaBtn=document.getElementById('diyaButton');
+  const diya=document.getElementById('diya');
+  diyaBtn.addEventListener('click', () => {
+    lit=!lit; diya.classList.toggle('unlit',!lit);
+    document.getElementById('diyaHint').textContent=lit?'Your light is shining. May your wishes bloom.':'Tap the diya to light your wish';
+    if (lit) {
+      const r=diyaBtn.getBoundingClientRect(); burst(r.left+r.width/2,r.top+r.height/2,90); chime(784,.3);
+      for(let i=0;i<8;i++) setTimeout(()=>sparkleAt(r.left+Math.random()*r.width,r.top+Math.random()*r.height),i*90);
+    } else chime(440,.15);
+  });
+
+  document.getElementById('fireBtn').addEventListener('click', () => {
+    for(let i=0;i<5;i++) setTimeout(()=>burst(w*(.15+Math.random()*.7),h*(.16+Math.random()*.42),55),i*180);
+    chime(880,.25); showToast('A little sparkle, just for you ✨');
+  });
+
+  document.getElementById('soundBtn').addEventListener('click', e => {
+    soundOn=!soundOn; e.currentTarget.textContent='Sound: '+(soundOn?'On':'Off');
+    e.currentTarget.setAttribute('aria-label','Toggle sound effects');
+    if(soundOn) chime(660,.12);
+  });
+
+  function playNote(freq) {
+    try {
+      audioCtx ||= new (window.AudioContext || window.webkitAudioContext)();
+      if(audioCtx.state==='suspended') audioCtx.resume();
+      const now=audioCtx.currentTime;
+      const osc=audioCtx.createOscillator(), gain=audioCtx.createGain(), filter=audioCtx.createBiquadFilter();
+      osc.type='sine'; osc.frequency.setValueAtTime(freq,now);
+      filter.type='lowpass'; filter.frequency.value=1500;
+      gain.gain.setValueAtTime(.0001,now);
+      gain.gain.exponentialRampToValueAtTime(.045,now+.08);
+      gain.gain.exponentialRampToValueAtTime(.0001,now+1.05);
+      osc.connect(filter); filter.connect(gain); gain.connect(audioCtx.destination);
+      osc.start(now); osc.stop(now+1.1);
+    } catch(e) {}
+  }
+  document.getElementById('musicBtn').addEventListener('click', e => {
+    musicOn=!musicOn; e.currentTarget.textContent='♫ Music: '+(musicOn?'On':'Off');
+    e.currentTarget.setAttribute('aria-pressed',String(musicOn));
+    if(musicOn) {
+      try { audioCtx ||= new (window.AudioContext || window.webkitAudioContext)(); audioCtx.resume(); } catch(e) {}
+      playNote(notes[noteIndex++%notes.length]);
+      musicTimer=setInterval(()=>playNote(notes[noteIndex++%notes.length]),720);
+      showToast('Soft instrumental tones are playing');
+    } else {
+      clearInterval(musicTimer); showToast('Music paused');
+    }
+  });
+
+  document.getElementById('shareBtn').addEventListener('click', async () => {
+    const shareData={title:'Shubh Deepawali ✨',text:'A little light, a little magic — wishing you and your family a beautiful Diwali! 🪔'};
+    try {
+      if(navigator.share) await navigator.share({...shareData,url:location.href});
+      else if(navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(location.href);
+        showToast('Website link copied — share it with everyone!');
+      } else {
+        window.prompt('Copy this Diwali greeting link:',location.href);
+      }
+    } catch(err) {
+      if(err.name!=='AbortError') showToast('Use your browser menu to copy this page link.');
+    }
+  });
+
+  if (reduced) {
+    // A static star field is drawn once for visitors who prefer reduced motion.
+    burst(w*.5,h*.25,22);
+  }
+})();
+</script>
+</body>
+</html>
