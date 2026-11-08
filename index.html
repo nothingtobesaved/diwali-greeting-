@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="शुभ दीपावली — A magical Diwali greeting from Sparsh" />
+  <meta property="og:title" content="शुभ दीपावली ✨" />
+  <meta property="og:description" content="May your world glow with a thousand joys." />
+  <meta property="og:type" content="website" />
+  <title>शुभ दीपावली — Sparsh</title>
+
+  <!-- Inline SVG favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪔</text></svg>" />
+
+  <!-- Google Font: Noto Serif Devanagari for Hindi, Cormorant Garamond for English -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+Devanagari:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────────────── */
+    :root {
+      --sky-deep:    #07061a;
+      --sky-mid:     #0d0a2e;
+      --sky-purple:  #1a1050;
+      --gold-bright: #ffd87a;
+      --gold-mid:    #f5a623;
+      --gold-dim:    #c47e1a;
+      --gold-glow:   rgba(255, 200, 80, 0.18);
+      --flame-tip:   #fff4c2;
+      --flame-core:  #ffb347;
+      --flame-base:  #e05c00;
+      --text-primary:#ffe9b0;
+      --text-soft:   rgba(255, 220, 140, 0.70);
+      --aurora-a:    rgba(80, 30, 180, 0.22);
+      --aurora-b:    rgba(20, 100, 180, 0.15);
+      --radius-btn:  48px;
+      --ff-hindi:    'Noto Serif Devanagari', serif;
+      --ff-english:  'Cormorant Garamond', Georgia, serif;
+      --transition:  cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ─── RESET ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { height: 100%; font-size: 16px; }
+    body {
+      min-height: 100%;
+      background: var(--sky-deep);
+      color: var(--text-primary);
+      font-family: var(--ff-english);
+      overflow-x: hidden;
+      overscroll-behavior: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ─── CANVAS LAYER ───────────────────────────────────────────── */
+    #canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ─── AURORA ─────────────────────────────────────────────────── */
+    .aurora {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .aurora::before, .aurora::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: aurora-drift 18s ease-in-out infinite alternate;
+    }
+    .aurora::before {
+      width: 70vw; height: 55vh;
+      top: -15%; left: -20%;
+      background: var(--aurora-a);
+    }
+    .aurora::after {
+      width: 60vw; height: 50vh;
+      bottom: -10%; right: -15%;
+      background: var(--aurora-b);
+      animation-delay: -9s;
+    }
+    @keyframes aurora-drift {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(6vw, 4vh) scale(1.1); }
+    }
+
+    /* ─── LAYOUT ─────────────────────────────────────────────────── */
+    #app {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem 1.25rem 3.5rem;
+      text-align: center;
+    }
+
+    /* ─── LANDING SCREEN ─────────────────────────────────────────── */
+    #screen-landing {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.2rem;
+    }
+
+    .title-hindi {
+      font-family: var(--ff-hindi);
+      font-size: clamp(2.8rem, 11vw, 5.4rem);
+      font-weight: 600;
+      letter-spacing: .04em;
+      line-height: 1.15;
+      background: linear-gradient(160deg, #fff4c2 10%, var(--gold-bright) 50%, var(--gold-mid) 90%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: none;
+      animation: title-appear 1.6s var(--transition) both;
+    }
+    @keyframes title-appear {
+      from { opacity:0; transform: translateY(28px); filter: blur(6px); }
+      to   { opacity:1; transform: none; filter: none; }
+    }
+
+    .subtitle {
+      font-family: var(--ff-english);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1rem, 3.5vw, 1.35rem);
+      color: var(--text-soft);
+      letter-spacing: .03em;
+      animation: title-appear 1.6s var(--transition) .4s both;
+    }
+
+    /* ─── DIYA ───────────────────────────────────────────────────── */
+    #diya-wrap {
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+      animation: title-appear 1.6s var(--transition) .8s both;
+      outline: none;
+    }
+    #diya-wrap:focus-visible .diya-svg { filter: drop-shadow(0 0 18px var(--gold-bright)); }
+
+    .diya-svg { width: clamp(130px, 38vw, 190px); height: auto; display: block; }
+
+    /* Glow halo */
+    .diya-glow {
+      position: absolute;
+      inset: -40%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,200,80,.18) 0%, transparent 70%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .6s ease;
+    }
+    #diya-wrap.lit .diya-glow { opacity: 1; animation: pulse-glow 2.4s ease-in-out infinite; }
+    @keyframes pulse-glow {
+      0%,100% { transform: scale(1);   opacity: .9; }
+      50%      { transform: scale(1.1); opacity: .5; }
+    }
+
+    /* Flame elements */
+    #flame-g { opacity: 0; transition: opacity .5s ease; }
+    #flame-inner { animation: flicker-inner 1.4s ease-in-out infinite alternate; }
+    #flame-outer { animation: flicker-outer 2.1s ease-in-out infinite alternate; }
+    @keyframes flicker-inner {
+      from { transform: scaleY(1)   scaleX(1)   translateX(0); }
+      to   { transform: scaleY(.88) scaleX(.93) translateX(1px); }
+    }
+    @keyframes flicker-outer {
+      from { transform: scaleY(1)   scaleX(1)   translateX(0); }
+      to   { transform: scaleY(.80) scaleX(1.05) translateX(-1px); }
+    }
+    #diya-wrap.lit #flame-g { opacity: 1; }
+
+    /* Tap instruction */
+    .tap-hint {
+      font-size: clamp(.8rem, 3vw, .95rem);
+      color: var(--text-soft);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      animation: title-appear 1.6s var(--transition) 1.1s both, hint-pulse 2.4s ease-in-out 2.7s infinite;
+    }
+    .tap-hint.hidden { opacity: 0; pointer-events: none; transition: opacity .5s; }
+    @keyframes hint-pulse {
+      0%,100% { opacity: .6; }
+      50%      { opacity: 1; }
+    }
+
+    /* ─── WISHES SCREEN ──────────────────────────────────────────── */
+    #screen-wishes {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      max-width: 560px;
+      margin: 0 auto;
+      animation: wishes-appear .9s var(--transition) both;
+    }
+    #screen-wishes.show { display: flex; }
+    @keyframes wishes-appear {
+      from { opacity:0; transform: translateY(32px); }
+      to   { opacity:1; transform: none; }
+    }
+
+    .wishes-title {
+      font-family: var(--ff-hindi);
+      font-size: clamp(2rem, 8vw, 3.4rem);
+      font-weight: 600;
+      background: linear-gradient(160deg, #fff4c2 10%, var(--gold-bright) 55%, var(--gold-mid) 95%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: .05em;
+    }
+
+    .divider {
+      width: 100px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+    }
+
+    .wishes-english {
+      font-family: var(--ff-english);
+      font-weight: 300;
+      font-size: clamp(1rem, 3.4vw, 1.2rem);
+      line-height: 1.8;
+      color: var(--text-primary);
+      font-style: italic;
+      max-width: 48ch;
+    }
+
+    .wishes-hindi {
+      font-family: var(--ff-hindi);
+      font-size: clamp(.9rem, 3vw, 1.1rem);
+      line-height: 1.9;
+      color: var(--text-soft);
+      font-weight: 300;
+      max-width: 44ch;
+    }
+
+    .signature {
+      font-family: var(--ff-english);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(.9rem, 3vw, 1.05rem);
+      color: var(--gold-dim);
+      letter-spacing: .04em;
+    }
+
+    /* ─── BUTTONS ────────────────────────────────────────────────── */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      justify-content: center;
+      margin-top: .5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .65rem 1.4rem;
+      border: 1px solid rgba(255, 200, 80, 0.30);
+      border-radius: var(--radius-btn);
+      background: rgba(255, 200, 80, 0.07);
+      color: var(--gold-bright);
+      font-family: var(--ff-english);
+      font-size: .88rem;
+      letter-spacing: .05em;
+      cursor: pointer;
+      transition: background .25s, border-color .25s, transform .15s;
+      outline: none;
+      white-space: nowrap;
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+    .btn:hover, .btn:focus-visible {
+      background: rgba(255, 200, 80, 0.14);
+      border-color: rgba(255, 200, 80, 0.55);
+      transform: translateY(-1px);
+    }
+    .btn:active { transform: scale(.96); }
+    .btn svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+
+    .btn--primary {
+      background: rgba(255, 200, 80, 0.14);
+      border-color: rgba(255, 200, 80, 0.5);
+    }
+
+    /* Controls row (top right) */
+    #controls {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 10;
+      display: flex;
+      gap: .5rem;
+    }
+    .ctrl {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,200,80,.25);
+      background: rgba(7,6,26,.7);
+      color: var(--gold-bright);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background .2s, border-color .2s, transform .15s;
+      outline: none;
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+    .ctrl:hover, .ctrl:focus-visible {
+      background: rgba(255,200,80,.12);
+      border-color: rgba(255,200,80,.5);
+      transform: scale(1.07);
+    }
+    .ctrl:active { transform: scale(.93); }
+    .ctrl svg { width: 18px; height: 18px; fill: currentColor; }
+    .ctrl.off { opacity: .45; }
+
+    /* ─── TOAST ──────────────────────────────────────────────────── */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(13, 10, 46, .92);
+      border: 1px solid rgba(255,200,80,.3);
+      border-radius: var(--radius-btn);
+      color: var(--text-primary);
+      padding: .6rem 1.4rem;
+      font-size: .85rem;
+      letter-spacing: .04em;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .3s, transform .3s;
+      z-index: 20;
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      white-space: nowrap;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ─── REDUCED MOTION ─────────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="canvas" aria-hidden="true"></canvas>
+<div class="aurora" aria-hidden="true"></div>
+
+<!-- Controls -->
+<div id="controls" role="group" aria-label="Controls">
+  <button class="ctrl off" id="btn-music" aria-label="Play music" title="Music">
+    <svg viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
+  </button>
+  <button class="ctrl" id="btn-sound" aria-label="Sound effects on" title="Sound">
+    <svg viewBox="0 0 24 24" id="icon-sound-on"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06A9 9 0 0 0 14 3.23z"/></svg>
+    <svg viewBox="0 0 24 24" id="icon-sound-off" style="display:none"><path d="M16.5 12a4.5 4.5 0 0 0-2.5-4v2.83l2.45 2.45c.03-.27.05-.54.05-.83zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.8 8.8 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06a7 7 0 0 1 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 0 0 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+  </button>
+</div>
+
+<!-- App Shell -->
+<main id="app">
+
+  <!-- Landing -->
+  <section id="screen-landing" aria-label="Welcome screen">
+    <h1 class="title-hindi">शुभ दीपावली</h1>
+    <p class="subtitle">May your world glow with a thousand joys.</p>
+
+    <div id="diya-wrap" role="button" tabindex="0" aria-label="Light the diya" aria-pressed="false">
+      <div class="diya-glow"></div>
+      <!-- SVG Diya — hand-crafted, no external assets -->
+      <svg class="diya-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="diya-body" cx="50%" cy="60%" r="55%">
+            <stop offset="0%"   stop-color="#c8742a"/>
+            <stop offset="50%"  stop-color="#8b3e0b"/>
+            <stop offset="100%" stop-color="#5a2605"/>
+          </radialGradient>
+          <radialGradient id="diya-oil" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stop-color="#ffd87a" stop-opacity=".9"/>
+            <stop offset="100%" stop-color="#c47e1a" stop-opacity=".6"/>
+          </radialGradient>
+          <radialGradient id="floor-glow" cx="50%" cy="100%" r="60%">
+            <stop offset="0%"   stop-color="#ffd87a" stop-opacity=".25"/>
+            <stop offset="100%" stop-color="#ffd87a" stop-opacity="0"/>
+          </radialGradient>
+          <!-- Flame gradients -->
+          <radialGradient id="flame-out" cx="50%" cy="80%" r="50%">
+            <stop offset="0%"   stop-color="#ffb347"/>
+            <stop offset="100%" stop-color="#e05c00" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="flame-in" cx="50%" cy="80%" r="45%">
+            <stop offset="0%"   stop-color="#fff4c2"/>
+            <stop offset="60%"  stop-color="#ffd87a"/>
+            <stop offset="100%" stop-color="#ffb347" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="flame-blur">
+            <feGaussianBlur stdDeviation="1.5"/>
+          </filter>
+        </defs>
+
+        <!-- Floor glow (lit only) -->
+        <ellipse id="floor-glow-el" cx="100" cy="195" rx="55" ry="18"
+                 fill="url(#floor-glow)" opacity="0"/>
+
+        <!-- Diya body -->
+        <path d="M55 160 Q48 140 50 125 Q52 110 100 108 Q148 110 150 125 Q152 140 145 160 Z"
+              fill="url(#diya-body)" />
+        <!-- Rim highlight -->
+        <path d="M55 160 Q52 148 100 146 Q148 148 145 160"
+              stroke="#c47e1a" stroke-width="1.5" fill="none" opacity=".5"/>
+        <!-- Inner bowl / oil -->
+        <ellipse cx="100" cy="123" rx="34" ry="10" fill="url(#diya-oil)" opacity=".8"/>
+        <!-- Spout -->
+        <path d="M140 125 Q158 120 165 130 Q158 136 140 132 Z"
+              fill="#8b3e0b"/>
+        <!-- Spout highlight -->
+        <path d="M145 126 Q158 122 163 130"
+              stroke="#c47e1a" stroke-width="1" fill="none" opacity=".4"/>
+        <!-- Decorative dots on body -->
+        <circle cx="80"  cy="142" r="2.5" fill="#e08020" opacity=".6"/>
+        <circle cx="100" cy="145" r="2.5" fill="#e08020" opacity=".6"/>
+        <circle cx="120" cy="142" r="2.5" fill="#e08020" opacity=".6"/>
+        <!-- Wick -->
+        <path d="M157 128 Q160 118 162 112" stroke="#b08040" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+        <!-- Flame group -->
+        <g id="flame-g" transform-origin="162 112">
+          <!-- Outer flame -->
+          <path id="flame-outer"
+                d="M162 112 Q156 100 157 88 Q158 76 162 68 Q166 76 167 88 Q168 100 162 112 Z"
+                fill="url(#flame-out)" filter="url(#flame-blur)"
+                transform-origin="162 112"/>
+          <!-- Inner flame -->
+          <path id="flame-inner"
+                d="M162 112 Q158 103 159 93 Q160 83 162 76 Q164 83 165 93 Q166 103 162 112 Z"
+                fill="url(#flame-in)"
+                transform-origin="162 112"/>
+          <!-- Tip glow -->
+          <circle cx="162" cy="70" r="4" fill="#fff4c2" opacity=".9" filter="url(#flame-blur)"/>
+        </g>
+      </svg>
+    </div>
+
+    <p class="tap-hint" id="tap-hint">✦ Tap to light your diya ✦</p>
+  </section>
+
+  <!-- Wishes -->
+  <section id="screen-wishes" aria-label="Diwali wishes" aria-live="polite">
+    <h2 class="wishes-title">शुभ दीपावली ✨</h2>
+    <div class="divider"></div>
+
+    <p class="wishes-english">
+      May this festival bring peace to your home,<br>
+      strength to your heart, and countless reasons to smile.<br>
+      May every new day open a beautiful door,<br>
+      and may the light within you never fade.
+    </p>
+
+    <div class="divider"></div>
+
+    <p class="wishes-hindi">
+      आपके जीवन में सुख, शांति और समृद्धि का उजाला बना रहे।<br>
+      हर नई सुबह नई उम्मीदें लाए<br>
+      और आपका घर हमेशा खुशियों से रोशन रहे।
+    </p>
+
+    <p class="signature">— With love, Sparsh 🪔</p>
+
+    <div class="btn-row">
+      <button class="btn btn--primary" id="btn-replay" aria-label="Replay celebration">
+        <svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7a7 7 0 1 1-6.74 5H3.26A9 9 0 1 0 12 5z"/></svg>
+        Replay
+      </button>
+      <button class="btn" id="btn-share" aria-label="Share this greeting">
+        <svg viewBox="0 0 24 24"><path d="M18 16.1a2.9 2.9 0 0 0-1.96.77L8.91 12.7a3 3 0 0 0 0-1.4l7.05-4.11A2.99 2.99 0 1 0 15 5a3 3 0 0 0 .13.86L8.1 9.97A3 3 0 1 0 8.1 14l7.08 4.13a3 3 0 1 0 2.82-1.99z"/></svg>
+        Share
+      </button>
+    </div>
+  </section>
+
+</main>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- ═══════════════════════════════ SCRIPT ═══════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Reduced motion ── */
+  const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── State ── */
+  let lit = false;
+  let musicOn = false;
+  let soundOn = true;
+  let fireworksTimer = null;
+  let bgCtx, bgAnimId;
+
+  /* ── Elements ── */
+  const canvas     = document.getElementById('canvas');
+  const divaWrap   = document.getElementById('diya-wrap');
+  const tapHint    = document.getElementById('tap-hint');
+  const screenLand = document.getElementById('screen-landing');
+  const screenWish = document.getElementById('screen-wishes');
+  const btnMusic   = document.getElementById('btn-music');
+  const btnSound   = document.getElementById('btn-sound');
+  const btnReplay  = document.getElementById('btn-replay');
+  const btnShare   = document.getElementById('btn-share');
+  const toastEl    = document.getElementById('toast');
+  const floorGlow  = document.getElementById('floor-glow-el');
+
+  /* ══════════════════════════════════════════
+     CANVAS — Stars + Particles + Fireworks
+  ══════════════════════════════════════════ */
+  const ctx = canvas.getContext('2d');
+  let W, H;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  /* Stars */
+  const NUM_STARS = noMotion ? 0 : 180;
+  const stars = Array.from({ length: NUM_STARS }, () => ({
+    x: Math.random() * W,
+    y: Math.random() * H * .75,
+    r: Math.random() * 1.3 + .3,
+    a: Math.random(),
+    speed: Math.random() * .008 + .003,
+    phase: Math.random() * Math.PI * 2,
+  }));
+
+  /* Floating particles (post-light) */
+  const particles = [];
+  function spawnParticles(n, cx, cy) {
+    for (let i = 0; i < n; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * 2.5 + .8;
+      particles.push({
+        x: cx, y: cy,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - 1.5,
+        r: Math.random() * 3 + 1,
+        life: 1,
+        decay: Math.random() * .015 + .008,
+        color: `hsl(${40 + Math.random()*20},100%,${65 + Math.random()*20}%)`,
+      });
+    }
+  }
+
+  /* Ambient drifting particles (post-light) */
+  const drifters = [];
+  function spawnDrifter() {
+    drifters.push({
+      x: Math.random() * W,
+      y: H + 10,
+      vx: (Math.random() - .5) * .6,
+      vy: -(Math.random() * 1.2 + .4),
+      r: Math.random() * 2.5 + .8,
+      life: 1,
+      decay: Math.random() * .004 + .002,
+      color: `hsl(${38 + Math.random()*20},100%,${60 + Math.random()*25}%)`,
+    });
+  }
+  let driftInterval = null;
+
+  /* Fireworks */
+  const fireworks = [];
+  function launchFirework() {
+    const x = W * (.2 + Math.random() * .6);
+    const y = H * (.08 + Math.random() * .35);
+    const hue = Math.random() * 60 + 30; // gold / amber / yellow
+    const count = noMotion ? 0 : 60 + Math.floor(Math.random() * 40);
+    for (let i = 0; i < count; i++) {
+      const angle = (i / count) * Math.PI * 2;
+      const speed = Math.random() * 5 + 2;
+      fireworks.push({
+        x, y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        r: Math.random() * 2.5 + 1,
+        life: 1,
+        decay: Math.random() * .018 + .01,
+        gravity: .07,
+        color: `hsl(${hue},100%,${65 + Math.random()*20}%)`,
+        trail: [],
+      });
+    }
+  }
+
+  let fireworkBurst = 0;
+  function triggerFireworks() {
+    fireworkBurst = 0;
+    const burst = () => {
+      if (fireworkBurst >= 7) return;
+      launchFirework();
+      fireworkBurst++;
+      fireworksTimer = setTimeout(burst, 500 + Math.random() * 400);
+    };
+    burst();
+  }
+
+  /* ── Draw loop ── */
+  function drawFrame(ts) {
+    bgAnimId = requestAnimationFrame(drawFrame);
+    ctx.clearRect(0, 0, W, H);
+
+    /* Gradient sky */
+    const sky = ctx.createLinearGradient(0, 0, 0, H);
+    sky.addColorStop(0, '#07061a');
+    sky.addColorStop(.5, '#0d0a2e');
+    sky.addColorStop(1, '#1a1050');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, W, H);
+
+    /* Stars */
+    stars.forEach(s => {
+      s.phase += s.speed;
+      const alpha = s.a * (.5 + .5 * Math.sin(s.phase));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,240,180,${alpha})`;
+      ctx.fill();
+    });
+
+    /* Fireworks */
+    for (let i = fireworks.length - 1; i >= 0; i--) {
+      const fw = fireworks[i];
+      fw.trail.push({ x: fw.x, y: fw.y, life: fw.life });
+      if (fw.trail.length > 5) fw.trail.shift();
+      fw.x += fw.vx;
+      fw.y += fw.vy;
+      fw.vy += fw.gravity;
+      fw.vx *= .98;
+      fw.life -= fw.decay;
+      if (fw.life <= 0) { fireworks.splice(i, 1); continue; }
+      ctx.beginPath();
+      ctx.arc(fw.x, fw.y, fw.r * fw.life, 0, Math.PI * 2);
+      ctx.fillStyle = fw.color.replace(')', `,${fw.life})`).replace('hsl', 'hsla');
+      ctx.fill();
+    }
+
+    /* Burst particles */
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.x += p.vx; p.y += p.vy;
+      p.vy += .05;
+      p.life -= p.decay;
+      if (p.life <= 0) { particles.splice(i, 1); continue; }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * p.life, 0, Math.PI * 2);
+      ctx.fillStyle = p.color.replace(')', `,${p.life})`).replace('hsl', 'hsla');
+      ctx.fill();
+    }
+
+    /* Ambient drifters */
+    for (let i = drifters.length - 1; i >= 0; i--) {
+      const d = drifters[i];
+      d.x += d.vx; d.y += d.vy;
+      d.life -= d.decay;
+      if (d.life <= 0 || d.y < -20) { drifters.splice(i, 1); continue; }
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r * d.life, 0, Math.PI * 2);
+      ctx.fillStyle = d.color.replace(')', `,${d.life * .7})`).replace('hsl', 'hsla');
+      ctx.fill();
+    }
+  }
+  drawFrame();
+
+  /* ══════════════════════════════════════════
+     AUDIO — Web Audio API tone synth
+  ══════════════════════════════════════════ */
+  let audioCtx = null;
+  let bgGain   = null;
+  let bgNodes  = [];
+
+  function ensureAudioCtx() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    return audioCtx;
+  }
+
+  /* Soft ambient tone: layered sine waves — raga-like feeling */
+  function startMusic() {
+    const ac = ensureAudioCtx();
+    if (bgGain) return; // already playing
+    bgGain = ac.createGain();
+    bgGain.gain.setValueAtTime(0, ac.currentTime);
+    bgGain.gain.linearRampToValueAtTime(.18, ac.currentTime + 3);
+    bgGain.connect(ac.destination);
+
+    /* Sa Re Ga — pentatonic root notes */
+    const freqs = [130.81, 164.81, 196.00, 220.00, 261.63, 196.00, 164.81];
+    freqs.forEach((f, i) => {
+      const osc = ac.createOscillator();
+      const g   = ac.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(f, ac.currentTime);
+      osc.frequency.setValueAtTime(f * 2, ac.currentTime + 4 + i * 2.5);
+      g.gain.value = .04;
+      osc.connect(g);
+      g.connect(bgGain);
+      osc.start(ac.currentTime + i * .7);
+      bgNodes.push(osc);
+    });
+
+    /* Bass drone */
+    const drone = ac.createOscillator();
+    drone.type = 'triangle';
+    drone.frequency.value = 65.41;
+    const dg = ac.createGain(); dg.gain.value = .06;
+    drone.connect(dg); dg.connect(bgGain);
+    drone.start();
+    bgNodes.push(drone);
+  }
+
+  function stopMusic() {
+    if (!bgGain) return;
+    const ac = audioCtx;
+    bgGain.gain.linearRampToValueAtTime(0, ac.currentTime + 1.5);
+    setTimeout(() => {
+      bgNodes.forEach(n => { try { n.stop(); } catch (e) {} });
+      bgNodes = [];
+      bgGain.disconnect();
+      bgGain = null;
+    }, 1600);
+  }
+
+  /* Sound effect — sparkle burst */
+  function playSfx() {
+    if (!soundOn) return;
+    const ac = ensureAudioCtx();
+    for (let i = 0; i < 6; i++) {
+      const osc = ac.createOscillator();
+      const g   = ac.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(600 + Math.random() * 1200, ac.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(100, ac.currentTime + .4);
+      g.gain.setValueAtTime(.12, ac.currentTime);
+      g.gain.exponentialRampToValueAtTime(.001, ac.currentTime + .4);
+      osc.connect(g); g.connect(ac.destination);
+      osc.start(ac.currentTime + i * .06);
+      osc.stop(ac.currentTime + .5);
+    }
+  }
+
+  /* ══════════════════════════════════════════
+     LIGHT THE DIYA
+  ══════════════════════════════════════════ */
+  function lightDiya() {
+    if (lit) return;
+    lit = true;
+    divaWrap.classList.add('lit');
+    divaWrap.setAttribute('aria-pressed', 'true');
+    tapHint.classList.add('hidden');
+
+    /* Floor glow */
+    floorGlow.style.transition = 'opacity .8s ease';
+    floorGlow.style.opacity = '1';
+
+    /* Sound */
+    playSfx();
+
+    /* Particles burst from diya */
+    const rect = divaWrap.getBoundingClientRect();
+    const cx = rect.left + rect.width * .78;
+    const cy = rect.top  + rect.height * .42;
+    if (!noMotion) {
+      spawnParticles(55, cx, cy);
+      /* Start ambient drifters */
+      driftInterval = setInterval(spawnDrifter, 320);
+    }
+
+    /* Fireworks */
+    if (!noMotion) {
+      setTimeout(triggerFireworks, 400);
+    }
+
+    /* Reveal wishes after short delay */
+    setTimeout(() => {
+      screenLand.style.transition = 'opacity .6s ease';
+      screenLand.style.opacity    = '0';
+      setTimeout(() => {
+        screenLand.style.display = 'none';
+        screenWish.classList.add('show');
+      }, 650);
+    }, 1800);
+  }
+
+  divaWrap.addEventListener('click', lightDiya);
+  divaWrap.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); lightDiya(); }});
+
+  /* ══════════════════════════════════════════
+     REPLAY
+  ══════════════════════════════════════════ */
+  function replay() {
+    lit = false;
+    clearTimeout(fireworksTimer);
+    clearInterval(driftInterval);
+    fireworks.length = 0;
+    particles.length = 0;
+    drifters.length  = 0;
+    divaWrap.classList.remove('lit');
+    divaWrap.setAttribute('aria-pressed', 'false');
+    tapHint.classList.remove('hidden');
+    floorGlow.style.opacity = '0';
+    screenWish.classList.remove('show');
+    screenLand.style.opacity = '1';
+    screenLand.style.display = 'flex';
+  }
+  btnReplay.addEventListener('click', replay);
+
+  /* ══════════════════════════════════════════
+     MUSIC CONTROL
+  ══════════════════════════════════════════ */
+  btnMusic.addEventListener('click', () => {
+    musicOn = !musicOn;
+    if (musicOn) { startMusic(); btnMusic.classList.remove('off'); btnMusic.setAttribute('aria-label','Pause music'); }
+    else         { stopMusic();  btnMusic.classList.add('off');    btnMusic.setAttribute('aria-label','Play music'); }
+  });
+
+  /* ══════════════════════════════════════════
+     SOUND EFFECTS CONTROL
+  ══════════════════════════════════════════ */
+  btnSound.addEventListener('click', () => {
+    soundOn = !soundOn;
+    document.getElementById('icon-sound-on').style.display  = soundOn ? '' : 'none';
+    document.getElementById('icon-sound-off').style.display = soundOn ? 'none' : '';
+    btnSound.setAttribute('aria-label', soundOn ? 'Sound effects on' : 'Sound effects off');
+    btnSound.classList.toggle('off', !soundOn);
+  });
+
+  /* ══════════════════════════════════════════
+     SHARE
+  ══════════════════════════════════════════ */
+  btnShare.addEventListener('click', async () => {
+    const url   = window.location.href;
+    const title = 'शुभ दीपावली — A magical Diwali greeting';
+    const text  = 'May your world glow with a thousand joys. ✨🪔';
+    if (navigator.share) {
+      try { await navigator.share({ title, text, url }); }
+      catch (e) { if (e.name !== 'AbortError') fallbackCopy(url); }
+    } else {
+      fallbackCopy(url);
+    }
+  });
+
+  function fallbackCopy(text) {
+    navigator.clipboard.writeText(text).then(() => showToast('Link copied!')).catch(() => showToast('Copy the link from your address bar.'));
+  }
+
+  /* ══════════════════════════════════════════
+     TOAST
+  ══════════════════════════════════════════ */
+  let toastTimer = null;
+  function showToast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2800);
+  }
+
+})();
+</script>
+</body>
+</html>
